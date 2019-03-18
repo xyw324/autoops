@@ -75,10 +75,10 @@ WSGI_APPLICATION = 'autoops.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'qxops',
+        'NAME': 'autoops',
         'USER': 'root',
-        'PASSWORD': '',
-        'HOST': '127.0.0.1',
+        'PASSWORD': 'Asimov',
+        'HOST': '192.168.1.74',
         'PORT': 3306,
     }
 }
@@ -123,9 +123,9 @@ STATICFILES_DIRS = [
 ]
 
 # MongoDB Connection
-MONGO_HOST = '192.168.102.100'
+MONGO_HOST = '192.168.1.74'
 MONGO_PORT = '27017'
 
 # Redis Connection
-REDSI_KWARGS_LPUSH = {"host": '192.168.102.100', 'port': 6379, 'db': 3}
+REDSI_KWARGS_LPUSH = {"host": '192.168.1.74', 'port': 6379, 'db': 3}
 REDSI_LPUSH_POOL = None
