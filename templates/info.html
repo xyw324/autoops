@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block page-left %}
+    <div class="panel panel-info">
+        <div class="panel-heading">
+            <h3 class="panel-title">内容管理</h3>
+        </div>
+        <div class="panel-body">
+            <a href="/fault-report/add-report/" class="btn btn-default btn-block">发布</a>
+            <hr>
+            <p><a href="">我的评论</a></p>
+        </div>
+    </div>
+    <div class="panel panel-info">
+        <div class="panel-heading">
+            <h3 class="panel-title">资料管理</h3>
+        </div>
+        <div class="panel-body">
+            <a href="">修改密码</a>
+        </div>
+    </div>
+{% endblock %}
+
+{% block page-right %}
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>序号</th>
+            <th>标题</th>
+            <th>评论数</th>
+            <th>支持数</th>
+            <th>操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+{% endblock %}

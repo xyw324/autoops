@@ -1,0 +1,36 @@
+#div_digg {
+    float: right;
+    margin-bottom: 10px;
+    margin-right: 30px;
+    font-size: 12px;
+    width: 125px;
+    text-align: center;
+    margin-top: 10px;
+}
+.diggit {
+    float: left;
+    width: 46px;
+    height: 52px;
+    background: url(/static/images/upup.gif) no-repeat;
+    text-align: center;
+    cursor: pointer;
+    margin-top: 2px;
+    padding-top: 5px;
+}
+.buryit {
+    float: right;
+    margin-left: 20px;
+    width: 46px;
+    height: 52px;
+    background: url(/static/images/downdown.gif) no-repeat;
+    text-align: center;
+    cursor: pointer;
+    margin-top: 2px;
+    padding-top: 5px;
+}
+.diggword {
+    margin-top: 5px;
+    margin-left: 0;
+    font-size: 12px;
+    color: red;
+}

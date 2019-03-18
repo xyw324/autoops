@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>首页</title>
+    <link rel="stylesheet" href="/static/plugins/bootstrap-3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/static/css/my-style.css">
+</head>
+<body>
+<!-- 导航条 -->
+<nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                    data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">CMS</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav">
+                <li class="active"><a href="#">报障系统<span class="sr-only">(current)</span></a></li>
+                <li><a href="#">尽请期待</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                {% if request.user.username %}
+                    <li><img src="/media/{{ request.user.avatar }}" style="height: 50px;width: 50px;border-radius: 50%">
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                           aria-expanded="false">{{ request.user.username }}<span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#">个人中心</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li><a href="/logout/">注销</a></li>
+                        </ul>
+                    </li>
+                {% else %}
+                    <li><a href="/login/">登录</a></li>
+                    <li><a href="/register/">注册</a></li>
+                {% endif %}
+
+            </ul>
+            </li>
+            </ul>
+        </div><!-- /.navbar-collapse -->
+    </div><!-- /.container-fluid -->
+</nav>
+
+<!--页面主要内容-->
+<div class="container-fluid">
+    <div class="raw">
+        <div class="col-md-2">
+            {% block page-left %}
+            {% endblock %}
+
+        </div>
+        <div class="col-md-10">
+            {% block page-right %}
+            {% endblock %}
+        </div>
+    </div>
+</div>
+
+<script src="/static/plugins/jquery-3.3.1.min.js"></script>
+<script src="/static/plugins/bootstrap-3.3.7/js/bootstrap.min.js"></script>
+</body>
+</html>
