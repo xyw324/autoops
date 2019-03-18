@@ -12,7 +12,7 @@ from ansible.plugins.callback import CallbackBase
 from ansible.inventory.manager import InventoryManager
 from ansible.vars.manager import VariableManager
 from ansible.inventory.host import Host, Group
-from admin.settings.settings import BASE_DIR
+from autoops.settings import BASE_DIR
 
 
 class MyInventory():
