@@ -6,7 +6,7 @@ class ConnectionInfo(models.Model):
     # 用户连接相关信息
     ssh_username = models.CharField(max_length=10, default='', verbose_name='ssh用户名', null=True)
     ssh_userpasswd = models.CharField(max_length=40, default='', verbose_name='ssh用户密码', null=True)
-    # ssh_hostip = models.CharField(max_length=40, default='', verbose_name='ssh登录的ip', null=True)
+    ssh_hostip = models.CharField(max_length=40, default='', verbose_name='ssh登录的ip', null=True)
     ssh_host_port = models.CharField(max_length=10, default='', verbose_name='ssh登录的端口', null=True)
     # ssh_rsa = models.CharField(max_length=64, default='', verbose_name='ssh私钥')
     # rsa_pass = models.CharField(max_length=64, default='', verbose_name='私钥的密钥')
@@ -18,7 +18,7 @@ class ConnectionInfo(models.Model):
     sn_key = models.CharField(max_length=256, verbose_name="唯一设备ID", default="")
 
     def __str__(self):
-        return self.ssh_username
+        return self.ssh_hostip
 
     class Meta:
         verbose_name = '用户登录信息表'
