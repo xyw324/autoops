@@ -18,6 +18,9 @@ class ConnectionInfo(models.Model):
     # 唯一对象标示
     sn_key = models.CharField(max_length=256, verbose_name="唯一设备ID", default="")
 
+    def __str__(self):
+        return self.ssh_hostip
+
     class Meta:
         verbose_name = '用户登录信息表'
         verbose_name_plural = verbose_name
@@ -38,6 +41,9 @@ class VirtualServerInfo(models.Model):
     # 用户登录系统信息
     conn_vir = models.ForeignKey(to='ConnectionInfo')
 
+    def __str__(self):
+        return self.server_ip
+
     class Meta:
         verbose_name = '虚拟设备表'
         verbose_name_plural = verbose_name
@@ -45,6 +51,9 @@ class VirtualServerInfo(models.Model):
 
 class HostGroup(models.Model):
     group = models.CharField(max_length=32, verbose_name='主机组名称')
+
+    def __str__(self):
+        return self.group
 
     class Meta:
         verbose_name = '主机组表'
