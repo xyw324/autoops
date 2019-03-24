@@ -14,12 +14,34 @@
 
 {% block page-right %}
     <div class="col-xs-12 col-md-4 mb-5">
-        <span>新平台项目</span>
-        <a href="">
+        <li id="assetTree_1" class="level0" tabindex="0" hidefocus="true" treenode="">
+            <span id="assetTree_1_switch" title="" class="button level0 switch root_open" treenode_switch="">
+            </span>
+            <a id="assetTree_1_a" class="level0" treenode_a="" onclick="" target="_blank" style="" title="新平台项目组">
+                <span id="assetTree_1_ico" title="" treenode_ico="" class="button ico_open"
+                  style="">
+                </span>
+                <span id="assetTree_1_span" class="node_name">新平台项目组
+                </span>
+            </a>
             {% for hostgroup in hostgroups %}
-                <a href="#">{{ hostgroup.group }}<span class="badge"></span></a>
+                 <ul id="assetTree_1_ul" class="level0 " style="display:block">
+                <li id="assetTree_2" class="level1" tabindex="0" hidefocus="true" treenode="">
+                    <span id="assetTree_2_switch" title="" class="button level1 switch center_close" treenode_switch="">
+                    </span>
+                    <a id="assetTree_2_a" class="level1" treenode_a="" onclick="" target="_blank" style=""
+                       title="{{ hostgroup.group }}">
+                        <span id="assetTree_2_ico" title="" treenode_ico="" class="button ico_close" style="">
+                        </span>
+                        <span id="assetTree_2_span" class="node_name">{{ hostgroup.group }}(0)
+                        </span>
+                    </a>
+                </li>
+            </ul>
+
             {% endfor %}
-        </a>
+
+        </li>
 
 
     </div>
