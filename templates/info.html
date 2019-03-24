@@ -14,10 +14,12 @@
 
 {% block page-right %}
     <div class="col-xs-12 col-md-4 mb-5">
-        <label>新平台项目</label>
-        {% for hostgroup in hostgroups %}
-           <a href="#">{{ hostgroup.group }}<span class="badge"></span></a>
-        {% endfor %}
+        <span>新平台项目</span>
+        <a href="">
+            {% for hostgroup in hostgroups %}
+                <a href="#">{{ hostgroup.group }}<span class="badge"></span></a>
+            {% endfor %}
+        </a>
 
 
     </div>
