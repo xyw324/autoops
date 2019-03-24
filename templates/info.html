@@ -14,43 +14,11 @@
 
 {% block page-right %}
     <div class="col-xs-12 col-md-4 mb-5">
-        <label>Clickable optgroup:</label>
-        <select id="optgroup_clickable"
-                class="form-control form-control-chosen-optgroup chosen-container-optgroup-clickable"
-                title="clickable_optgroup" data-placeholder="Please select..." multiple="" style="display: none;">
-            <optgroup label="Label A">
-                <option>Option One</option>
-                <option>Option Two</option>
-                <option>Option Three</option>
-                <option>Option Four</option>
-            </optgroup>
-            <optgroup label="Label B">
-                <option>Option Five</option>
-                <option>Option Six</option>
-                <option>Option Seven</option>
-                <option>Option Eight</option>
-            </optgroup>
-        </select>
-        <div class="chosen-container chosen-container-multi chosen-container-optgroup-clickable" style="width: 100%;"
-             title="clickable_optgroup" id="optgroup_clickable_chosen">
-            <ul class="chosen-choices">
-                <li class="search-field"><input type="text" value="Please select..." class="default" autocomplete="off"
-                                                style="width: 134px;"></li>
-            </ul>
-            <div class="chosen-drop">
-                <ul class="chosen-results">
-                    <li class="group-result">Label A</li>
-                    <li class="active-result group-option" data-option-array-index="1" style="">Option One</li>
-                    <li class="active-result group-option" data-option-array-index="2" style="">Option Two</li>
-                    <li class="active-result group-option" data-option-array-index="3" style="">Option Three</li>
-                    <li class="active-result group-option" data-option-array-index="4" style="">Option Four</li>
-                    <li class="group-result">Label B</li>
-                    <li class="active-result group-option" data-option-array-index="6" style="">Option Five</li>
-                    <li class="result-selected group-option" data-option-array-index="7" style="">Option Six</li>
-                    <li class="result-selected group-option" data-option-array-index="8" style="">Option Seven</li>
-                    <li class="result-selected group-option" data-option-array-index="9" style="">Option Eight</li>
-                </ul>
-            </div>
-        </div>
+        <label>新平台项目</label>
+        {% for hostgroup in hostgroups %}
+           <a href="#">hostgroup.group<span class="badge"></span></a>
+        {% endfor %}
+
+
     </div>
 {% endblock %}
