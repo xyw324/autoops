@@ -13,36 +13,70 @@
 {% endblock %}
 
 {% block page-right %}
-    <div class="col-xs-12 col-md-4 mb-5">
-        <li id="assetTree_1" class="level0" tabindex="0" hidefocus="true" treenode="">
-            <span id="assetTree_1_switch" title="" class="button level0 switch root_open" treenode_switch="">
-            </span>
-            <a id="assetTree_1_a" class="level0" treenode_a="" onclick="" target="_blank" style="" title="新平台项目组">
-                <span id="assetTree_1_ico" title="" treenode_ico="" class="button ico_open"
-                  style="">
-                </span>
-                <span id="assetTree_1_span" class="node_name">新平台项目组
-                </span>
-            </a>
-            {% for hostgroup in hostgroups %}
-                 <ul id="assetTree_1_ul" class="level0 " style="display:block">
-                <li id="assetTree_2" class="level1" tabindex="0" hidefocus="true" treenode="">
-                    <span id="assetTree_2_switch" title="" class="button level1 switch center_close" treenode_switch="">
-                    </span>
-                    <a id="assetTree_2_a" class="level1" treenode_a="" onclick="" target="_blank" style=""
-                       title="{{ hostgroup.group }}">
-                        <span id="assetTree_2_ico" title="" treenode_ico="" class="button ico_close" style="">
-                        </span>
-                        <span id="assetTree_2_span" class="node_name">{{ hostgroup.group }}(0)
-                        </span>
-                    </a>
-                </li>
-            </ul>
+    <div class="zz">
+		<ul id="treeDemo" class="ztree"></ul>
 
-            {% endfor %}
+		<button id='bbb'>
+			获取选中项
+		</button>
 
-        </li>
+	</div>
+	<hr>
+	<div class="container" style='height:120px;border:1px solid red' id='sss'>
 
+	</div>
+	<script src="/static/plugins/bootstrap-3.3.7/js/jquery.min.js"></script>
+	<script src="/static/plugins/bootstrap-3.3.7/js/jquery.ztree.all.min.js"></script>
+	<script>
+		var setting = {
+			check: {
+				enable: true
+			},
+			data: {
+				simpleData: {
+					enable: true
+				}
+			}
+		};
 
-    </div>
+		var zNodes =[
+			{ id:1, pId:0, name:"随意勾选 1"},
+			{ id:11, pId:1, name:"随意勾选 1-1"},
+			{ id:111, pId:11, name:"随意勾选 1-1-1"},
+			{ id:112, pId:11, name:"随意勾选 1-1-2"},
+			{ id:12, pId:1, name:"随意勾选 1-2"},
+			{ id:121, pId:12, name:"随意勾选 1-2-1"},
+			{ id:122, pId:12, name:"随意勾选 1-2-2"},
+			{ id:2, pId:0, name:"随意勾选 2"},
+			{ id:21, pId:2, name:"随意勾选 2-1"},
+			{ id:22, pId:2, name:"随意勾选 2-2"},
+			{ id:221, pId:22, name:"随意勾选 2-2-1"},
+			{ id:222, pId:22, name:"随意勾选 2-2-2"},
+			{ id:23, pId:2, name:"随意勾选 2-3"}
+		];
+
+		var selectedArr=[];//
+		$(document).ready(function(){
+			$.fn.zTree.init($("#treeDemo"), setting, zNodes);
+			$('#bbb').click(function(){
+				selectedArr=[]
+				var treeObj = $.fn.zTree.getZTreeObj("treeDemo");
+				var Znodes = treeObj.getCheckedNodes(true);
+				console.log(Znodes)
+				for(var i=0;i<Znodes.length;i++){
+					console.log(Znodes[i].getCheckStatus())
+					if(!Znodes[i].getCheckStatus().half){//不是半角
+						selectedArr.push(Znodes[i])
+					}
+				}
+				console.log(selectedArr)
+				var _html='<ul>'
+				for(var i=0;i<selectedArr.length;i++){
+					_html+='<li>'+selectedArr[i].name+'</li>'
+				}
+				_html+='</ul>'
+				$('#sss').html(_html)
+			})
+		});
+	</script>
 {% endblock %}
