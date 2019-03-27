@@ -14,69 +14,69 @@
 
 {% block page-right %}
     <div class="zz">
-		<ul id="treeDemo" class="ztree"></ul>
+        <ul id="treeDemo" class="ztree"></ul>
 
-		<button id='bbb'>
-			获取选中项
-		</button>
+        <button id='bbb'>
+            获取选中项
+        </button>
 
-	</div>
-	<hr>
-	<div class="container" style='height:120px;border:1px solid red' id='sss'>
+    </div>
+    <hr>
+    <div class="container" style='height:120px;border:1px solid red' id='sss'>
 
-	</div>
-	<script src="/static/plugins/bootstrap-3.3.7/js/jquery.min.js"></script>
-	<script src="/static/plugins/bootstrap-3.3.7/js/jquery.ztree.all.min.js"></script>
-	<script>
-		var setting = {
-			check: {
-				enable: true
-			},
-			data: {
-				simpleData: {
-					enable: true
-				}
-			}
-		};
+    </div>
+{#    <script src="/static/plugins/bootstrap-3.3.7/js/jquery.min.js"></script>#}
+    <script src="/static/plugins/bootstrap-3.3.7/js/jquery.ztree.all.min.js"></script>
+    <script>
+        var setting = {
+            check: {
+                enable: true
+            },
+            data: {
+                simpleData: {
+                    enable: true
+                }
+            }
+        };
 
-		var zNodes =[
-			{ id:1, pId:0, name:"随意勾选 1"},
-			{ id:11, pId:1, name:"随意勾选 1-1"},
-			{ id:111, pId:11, name:"随意勾选 1-1-1"},
-			{ id:112, pId:11, name:"随意勾选 1-1-2"},
-			{ id:12, pId:1, name:"随意勾选 1-2"},
-			{ id:121, pId:12, name:"随意勾选 1-2-1"},
-			{ id:122, pId:12, name:"随意勾选 1-2-2"},
-			{ id:2, pId:0, name:"随意勾选 2"},
-			{ id:21, pId:2, name:"随意勾选 2-1"},
-			{ id:22, pId:2, name:"随意勾选 2-2"},
-			{ id:221, pId:22, name:"随意勾选 2-2-1"},
-			{ id:222, pId:22, name:"随意勾选 2-2-2"},
-			{ id:23, pId:2, name:"随意勾选 2-3"}
-		];
+        var zNodes = [
+            {id: 1, pId: 0, name: "随意勾选 1"},
+            {id: 11, pId: 1, name: "随意勾选 1-1"},
+            {id: 111, pId: 11, name: "随意勾选 1-1-1"},
+            {id: 112, pId: 11, name: "随意勾选 1-1-2"},
+            {id: 12, pId: 1, name: "随意勾选 1-2"},
+            {id: 121, pId: 12, name: "随意勾选 1-2-1"},
+            {id: 122, pId: 12, name: "随意勾选 1-2-2"},
+            {id: 2, pId: 0, name: "随意勾选 2"},
+            {id: 21, pId: 2, name: "随意勾选 2-1"},
+            {id: 22, pId: 2, name: "随意勾选 2-2"},
+            {id: 221, pId: 22, name: "随意勾选 2-2-1"},
+            {id: 222, pId: 22, name: "随意勾选 2-2-2"},
+            {id: 23, pId: 2, name: "随意勾选 2-3"}
+        ];
 
-		var selectedArr=[];//
-		$(document).ready(function(){
-			$.fn.zTree.init($("#treeDemo"), setting, zNodes);
-			$('#bbb').click(function(){
-				selectedArr=[]
-				var treeObj = $.fn.zTree.getZTreeObj("treeDemo");
-				var Znodes = treeObj.getCheckedNodes(true);
-				console.log(Znodes)
-				for(var i=0;i<Znodes.length;i++){
-					console.log(Znodes[i].getCheckStatus())
-					if(!Znodes[i].getCheckStatus().half){//不是半角
-						selectedArr.push(Znodes[i])
-					}
-				}
-				console.log(selectedArr)
-				var _html='<ul>'
-				for(var i=0;i<selectedArr.length;i++){
-					_html+='<li>'+selectedArr[i].name+'</li>'
-				}
-				_html+='</ul>'
-				$('#sss').html(_html)
-			})
-		});
-	</script>
+        var selectedArr = [];//
+        $(document).ready(function () {
+            $.fn.zTree.init($("#treeDemo"), setting, zNodes);
+            $('#bbb').click(function () {
+                selectedArr = []
+                var treeObj = $.fn.zTree.getZTreeObj("treeDemo");
+                var Znodes = treeObj.getCheckedNodes(true);
+                console.log(Znodes)
+                for (var i = 0; i < Znodes.length; i++) {
+                    console.log(Znodes[i].getCheckStatus())
+                    if (!Znodes[i].getCheckStatus().half) {//不是半角
+                        selectedArr.push(Znodes[i])
+                    }
+                }
+                console.log(selectedArr)
+                var _html = '<ul>'
+                for (var i = 0; i < selectedArr.length; i++) {
+                    _html += '<li>' + selectedArr[i].name + '</li>'
+                }
+                _html += '</ul>'
+                $('#sss').html(_html)
+            })
+        });
+    </script>
 {% endblock %}
