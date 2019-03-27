@@ -14,34 +14,59 @@
 
 {% block page-right %}
     <div class="col-xs-12 col-md-4 mb-5">
-        <li id="assetTree_1" class="level0" tabindex="0" hidefocus="true" treenode="">
-            <span id="assetTree_1_switch" title="" class="button level0 switch root_open" treenode_switch="">
-            </span>
-            <a id="assetTree_1_a" class="level0" treenode_a="" onclick="" target="_blank" style="" title="新平台项目组">
-                <span id="assetTree_1_ico" title="" treenode_ico="" class="button ico_open"
-                  style="">
-                </span>
-                <span id="assetTree_1_span" class="node_name">新平台项目组
-                </span>
-            </a>
-            {% for hostgroup in hostgroups %}
-                 <ul id="assetTree_1_ul" class="level0 " style="display:block">
-                <li id="assetTree_2" class="level1" tabindex="0" hidefocus="true" treenode="">
-                    <span id="assetTree_2_switch" title="" class="button level1 switch center_close" treenode_switch="">
-                    </span>
-                    <a id="assetTree_2_a" class="level1" treenode_a="" onclick="" target="_blank" style=""
-                       title="{{ hostgroup.group }}">
-                        <span id="assetTree_2_ico" title="" treenode_ico="" class="button ico_close" style="">
-                        </span>
-                        <span id="assetTree_2_span" class="node_name">{{ hostgroup.group }}(0)
-                        </span>
-                    </a>
-                </li>
-            </ul>
-            {% endfor %}
-
-        </li>
-
-
+        <label>Clickable optgroup:</label>
+        <select id="optgroup_clickable"
+                class="form-control form-control-chosen-optgroup chosen-container-optgroup-clickable"
+                title="clickable_optgroup" data-placeholder="Please select..." multiple="" style="display: none;">
+            <optgroup label="Label A">
+                <option>Option One</option>
+                <option>Option Two</option>
+                <option>Option Three</option>
+                <option>Option Four</option>
+            </optgroup>
+            <optgroup label="Label B">
+                <option>Option Five</option>
+                <option>Option Six</option>
+                <option>Option Seven</option>
+                <option>Option Eight</option>
+            </optgroup>
+        </select>
     </div>
+    <script src="/static/plugins/jquery-1.10.2.js"></script>
+    <script src="/static/plugins/jquery-3.3.1.min.js"></script>
+    <script type="text/javascript" src="/static/js/chosen.jquery.js"></script>
+    <script type="text/javascript">
+        $('.form-control-chosen').chosen({
+            allow_single_deselect: true,
+            width: '100%'
+        });
+        $('.form-control-chosen-required').chosen({
+            allow_single_deselect: false,
+            width: '100%'
+        });
+        $('.form-control-chosen-search-threshold-100').chosen({
+            allow_single_deselect: true,
+            disable_search_threshold: 100,
+            width: '100%'
+        });
+        $('.form-control-chosen-optgroup').chosen({
+            width: '100%'
+        });
+
+        $(function () {
+            $('[title="clickable_optgroup"]').addClass('chosen-container-optgroup-clickable');
+        });
+        $(document).on('click', '[title="clickable_optgroup"] .group-result', function () {
+            var unselected = $(this).nextUntil('.group-result').not('.result-selected');
+            if (unselected.length) {
+                unselected.trigger('mouseup');
+            } else {
+                $(this).nextUntil('.group-result').each(function () {
+                    $('a.search-choice-close[data-option-array-index="' + $(this).data('option-array-index') + '"]').trigger('click');
+                });
+            }
+        });
+    </script>
+
+
 {% endblock %}
