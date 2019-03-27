@@ -11,6 +11,7 @@ import traceback
 class AdhocTask(views.View):
     def get(self, request):
         hostgroup_list = models.HostGroup.objects.all()
+
         return render(request, 'info.html', {'hostgroups': hostgroup_list})
 
     def post(self, request):
