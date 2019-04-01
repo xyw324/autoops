@@ -32,14 +32,12 @@
             </optgroup>
         </select>
     </div>
-    <script src="/static/plugins/jquery-1.10.2.js"></script>
-{#    <script src="/static/js/jquery.min.js"></script>#}
-    <script type="text/javascript" src="/static/js/chosen.jquery.js"></script>
+
     <script type="text/javascript">
         $('#optgroup_clickable').chosen({
-          allow_single_deselect: true,
-          disable_search_threshold: 100,
-          width: '100%'
+            allow_single_deselect: true,
+            disable_search_threshold: 100,
+            width: '100%'
         });
         $(function () {
             $('[title="clickable_optgroup"]').addClass('chosen-container-optgroup-clickable');
