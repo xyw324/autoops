@@ -36,23 +36,11 @@
 {#    <script src="/static/js/jquery.min.js"></script>#}
     <script type="text/javascript" src="/static/js/chosen.jquery.js"></script>
     <script type="text/javascript">
-        $('.form-control-chosen').chosen({
-            allow_single_deselect: true,
-            width: '100%'
+        $('#optgroup_clickable').chosen({
+          allow_single_deselect: true,
+          disable_search_threshold: 100,
+          width: '100%'
         });
-        $('.form-control-chosen-required').chosen({
-            allow_single_deselect: false,
-            width: '100%'
-        });
-        $('.form-control-chosen-search-threshold-100').chosen({
-            allow_single_deselect: true,
-            disable_search_threshold: 100,
-            width: '100%'
-        });
-        $('.form-control-chosen-optgroup').chosen({
-            width: '100%'
-        });
-
         $(function () {
             $('[title="clickable_optgroup"]').addClass('chosen-container-optgroup-clickable');
         });
