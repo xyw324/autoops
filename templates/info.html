@@ -18,18 +18,13 @@
         <select id="optgroup_clickable"
                 class="form-control form-control-chosen-optgroup chosen-container-optgroup-clickable"
                 title="clickable_optgroup" data-placeholder="Please select..." multiple="" style="display: none;">
-            <optgroup label="Label A">
-                <option>Option One</option>
-                <option>Option Two</option>
-                <option>Option Three</option>
-                <option>Option Four</option>
-            </optgroup>
-            <optgroup label="Label B">
-                <option>Option Five</option>
-                <option>Option Six</option>
-                <option>Option Seven</option>
-                <option>Option Eight</option>
-            </optgroup>
+            {% for hostgroup in hostgroups %}
+                <optgroup label="{{ hostgroup.group }}">
+                    {% for host in hostgroup.virtualserverinfo_set.all %}
+                        <option>{{ host.server_ip }}</option>
+                    {% endfor %}
+                </optgroup>
+            {% endfor %}
         </select>
     </div>
 
