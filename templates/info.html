@@ -14,18 +14,21 @@
 
 {% block page-right %}
     <div class="col-xs-12 col-md-4 mb-5">
-        <label>新平台项目:</label>
-        <select id="optgroup_clickable"
-                class="form-control form-control-chosen-optgroup chosen-container-optgroup-clickable"
-                title="clickable_optgroup" data-placeholder="Please select..." multiple="" style="display: none;">
-            {% for hostgroup in hostgroups %}
-                <optgroup label="{{ hostgroup.group }}">
-                    {% for host in hostgroup.virtualserverinfo_set.all %}
-                        <option>{{ host.server_ip }}</option>
-                    {% endfor %}
-                </optgroup>
-            {% endfor %}
-        </select>
+        <form action="" method="post">
+            <label>新平台项目:</label>
+            <select id="optgroup_clickable"
+                    class="form-control form-control-chosen-optgroup chosen-container-optgroup-clickable"
+                    title="clickable_optgroup" data-placeholder="Please select..." multiple="" style="display: none;">
+                {% for hostgroup in hostgroups %}
+                    <optgroup label="{{ hostgroup.group }}">
+                        {% for host in hostgroup.virtualserverinfo_set.all %}
+                            <option>{{ host.server_ip }}</option>
+                        {% endfor %}
+                    </optgroup>
+                {% endfor %}
+            </select>
+            <input type="submit" value="提交">
+        </form>
     </div>
 
     <script type="text/javascript">
