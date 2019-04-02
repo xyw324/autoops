@@ -11,12 +11,12 @@ import traceback
 class AdhocTask(views.View):
     def get(self, request):
         hostgroup_list = models.HostGroup.objects.all()
-
         return render(request, 'info.html', {'hostgroups': hostgroup_list})
 
     def post(self, request):
         result = {}
         jobs = request.body
+        print(request.body)
         init_jobs = json.loads(jobs)
         # {'taskid':'289675','mod_type':'shell','exec_args':'sleep 100','group_name':'test','sn_key':['b847h4774b']}
         taskid = init_jobs.get("taskid")
