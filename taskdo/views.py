@@ -15,7 +15,7 @@ class AdhocTask(views.View):
 
     def post(self, request):
         # result = {}
-        ip_list = request.POST.get("iplist")
+        ip_list = request.POST.get("ip")
         print(ip_list)
         # print(request.body)
         # init_jobs = json.loads(jobs)
