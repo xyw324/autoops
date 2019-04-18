@@ -15,9 +15,12 @@
 {% block page-right %}
     <div class="col-xs-12 col-md-4 mb-5">
         <form action="" method="post">
-            <div class="embed-responsive embed-responsive-4by3">
-                <iframe class="embed-responsive-item" src="..."></iframe>
-            </div>
+            <textarea rows=1 cols=16 name="iplist" style='overflow:scroll;overflow-y:hidden;;overflow-x:hidden'
+                      onfocus="window.activeobj=this;this.clock=setInterval(function(){activeobj.style.height=activeobj.scrollHeight+'px';},200);"
+                      onblur="clearInterval(this.clock);">
+
+            </textarea>
+            <button type="submit" class="btn btn-default">提交</button>
         </form>
     </div>
 
