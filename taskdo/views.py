@@ -17,7 +17,7 @@ class AdhocTask(views.View):
         # result = {}
         ip_list = request.POST.get("iplist")
         for i in ip_list.split():
-            print(i)
+            print(i,'******')
         # print(request.body)
         # init_jobs = json.loads(jobs)
         # # {'taskid':'289675','mod_type':'shell','exec_args':'sleep 100','group_name':'test','sn_key':['b847h4774b']}
