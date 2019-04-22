@@ -19,7 +19,7 @@ class AdhocTask(views.View):
         for i in ip_list.split():
             host_obj = models.VirtualServerInfo.objects.filter(server_ip=i)[0]
             if host_obj:
-                current_sn_keys = models.VirtualServerInfo.objects.filter(sn=host_obj.sn)
+                current_sn_keys = host_obj.sn
                 print(current_sn_keys)
         # print(request.body)
         # init_jobs = json.loads(jobs)
