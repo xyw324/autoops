@@ -1,5 +1,6 @@
 from django.shortcuts import HttpResponse, render
 from django import views
+import time
 import json
 from taskdo import models
 from taskdo import utils
@@ -15,12 +16,18 @@ class AdhocTask(views.View):
 
     def post(self, request):
         # result = {}
+        current_time = time.time()
+        current_second = str(current_time).split(".")[0]
+        init_jobs = {'mod_type': 'shell', 'exec_args': 'sleep 100', 'group_name': 'test',
+                     'sn_key': []}
+        init_jobs['taskid'] = current_second
         ip_list = request.POST.get("iplist")
         for i in ip_list.split():
             host_obj = models.VirtualServerInfo.objects.filter(server_ip=i)[0]
             if host_obj:
                 current_sn_keys = host_obj.sn
-                print(current_sn_keys)
+                init_jobs['sn_key'].append(current_sn_keys)
+        print(init_jobs)
         # print(request.body)
         # init_jobs = json.loads(jobs)
         # # {'taskid':'289675','mod_type':'shell','exec_args':'sleep 100','group_name':'test','sn_key':['b847h4774b']}
