@@ -12,7 +12,7 @@ class RedisConPool(object):
     def getRedisConnection(self, db):
         if db == RedisConPool.REDIS_POOL:
             args = settings.REDSI_KWARGS_LPUSH
-            if settings.REDSI_LPUSH_POOL:
+            if not settings.REDSI_LPUSH_POOL:
                 settings.REDSI_LPUSH_POOL = redis.ConnectionPool(host=args.get('host'), port=args.get('port'),
                                                                  db=args.get('db'))
                 pools = settings.REDSI_LPUSH_POOL
