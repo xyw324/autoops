@@ -58,7 +58,7 @@ class AdhocTask(views.View):
                         sshpasswd = cn.decrypt(host.ssh_userpasswd)
                         if host.ssh_type in (1, 2):
                             hosts_list.append(
-                                {"hostname": host.sn_key, "ip": host.ssh_hostip, "port": host.ssh_host_port,
+                                {"hostname": host.sn_key, "ip": host.ssh_hostip, "port": int(host.ssh_host_port),
                                  "username": host.ssh_username, "ssh_key": host.ssh_rsa})
                             hosts_ip.append(host.sn_key)
                     resource[group_name] = {"hosts": hosts_list, "vars": vars_dic}
