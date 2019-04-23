@@ -126,7 +126,7 @@ STATICFILES_DIRS = [
 
 # MongoDB Connection
 MONGO_HOST = '192.168.1.74'
-MONGO_PORT = '27017'
+MONGO_PORT = 27017
 
 # Redis Connection
 REDSI_KWARGS_LPUSH = {"host": '192.168.1.74', 'port': 6379, 'db': 3}
