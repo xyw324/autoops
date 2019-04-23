@@ -17,7 +17,7 @@ class prpcrypt():
     key 此处必须要求为16位
     '''
 
-    def __init__(self, key):
+    def __init__(self, key=b'1234567812345678'):
         self.key = key
         # 这里密钥key 长度必须为16（AES-128）,24（AES-192）,或者32 （AES-256）Bytes 长度
         # 目前使用AES-128 足够目前使用

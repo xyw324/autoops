@@ -3,7 +3,7 @@ from django import views
 import time
 import json
 from taskdo import models
-from taskdo import utils
+from taskdo.utils.base.utils import prpcrypt
 from taskdo.utils.base import RedisCon, MongoCon
 from taskdo.utils import ansible_api
 import traceback
@@ -52,7 +52,7 @@ class AdhocTask(views.View):
                     resource = {}
                     hosts_list = []
                     vars_dic = {}
-                    cn = utils.prpcrypt()
+                    cn = prpcrypt()
                     hosts_ip = []
                     for host in hosts_obj:
                         sshpasswd = cn.decrypt(host.ssh_userpasswd)
