@@ -34,7 +34,7 @@ class prpcrypt():
 
     # 解密后，去掉补足的空格用strip() 去掉
     def decrypt(self, text):
-        text = base64.b64decode(text)
+        newtext = base64.b64decode(text)
         cryptor = AES.new(self.key, self.mode, self.key)
-        plain_text = cryptor.decrypt(text)
+        plain_text = cryptor.decrypt(newtext)
         return str(plain_text, 'utf-8')
