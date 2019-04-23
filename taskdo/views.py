@@ -77,10 +77,12 @@ class AdhocTask(views.View):
                         adlog.record(statuid=20000)
                         RedisCon.DsRedis.setlock("tasklock", 0)
                         result = {"status": "success", "info": res}
+                        print(result)
             except Exception as e:
                 print(traceback.print_exc())
                 RedisCon.DsRedis.setlock("tasklock", 0)
                 result = {"status": "failed", "code": "005", "info": e}
+                print(result)
             finally:
                 return HttpResponse(json.dumps(result), content_type="application/json")
         # return HttpResponse('OK')
