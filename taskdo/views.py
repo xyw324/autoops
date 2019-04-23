@@ -55,6 +55,7 @@ class AdhocTask(views.View):
                     cn = prpcrypt()
                     hosts_ip = []
                     for host in hosts_obj:
+                        print(host.ssh_userpasswd)
                         sshpasswd = cn.decrypt(host.ssh_userpasswd)
                         if host.ssh_type in (1, 2):
                             hosts_list.append(
