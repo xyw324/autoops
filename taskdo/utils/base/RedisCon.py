@@ -9,7 +9,7 @@ class RedisConPool(object):
     REDIS_POOL = 10000
 
     @staticmethod
-    def getRedisConnection(self, db):
+    def getRedisConnection(self, db=10000):
         if db == RedisConPool.REDIS_POOL:
             args = settings.REDSI_KWARGS_LPUSH
             if not settings.REDSI_LPUSH_POOL:
