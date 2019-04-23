@@ -57,7 +57,7 @@ class DsRedis(object):
     @staticmethod
     def setlock(rkey, value):
         try:
-            redisConn = RedisConPool.getRedisConnection(RedisConPool.REDIS_POOL)
+            redisConn = RedisConPool.getRedisConnection(10000)
             redisConn.set(rkey, value)
             # redisConn.expire(redisKey, 1800)
             redisConn.expire(rkey, 1800)
@@ -69,7 +69,7 @@ class DsRedis(object):
     @staticmethod
     def get(rkey):
         try:
-            redisConn = RedisConPool.getRedisConnection(RedisConPool.REDIS_POOL)
+            redisConn = RedisConPool.getRedisConnection(10000)
             result = redisConn.get(rkey)
             redisConn = None
             return result
