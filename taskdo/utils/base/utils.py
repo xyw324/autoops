@@ -1,17 +1,8 @@
-#!/usr/bin/python3
-# -*- coding: utf-8 -*-
-# ++++++++++++++++++++++++++++++++++++++
-# 先导入所需要的包
-# pip install Crypto
-# 再安装pycrypto
-# pip install pycrypto
-# ++++++++++++++++++++++++++++++++++++++
-import sys
 from Crypto.Cipher import AES
 import base64
 
 
-class prpcrypt():
+class prpcrypt:
     '''
     用于通过密钥进行重要数据的加密解密
     key 此处必须要求为16位
