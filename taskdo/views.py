@@ -18,7 +18,7 @@ class AdhocTask(views.View):
         result = {}
         current_time = time.time()
         current_second = str(current_time).split(".")[0]
-        init_jobs = {'mod_type': 'shell', 'exec_args': 'sleep 100', 'group_name': 'test', 'sn_key': []}
+        init_jobs = {'mod_type': 'shell', 'exec_args': 'sleep 100', 'group_name': 'test01', 'sn_key': []}
         init_jobs['taskid'] = current_second
         ip_list = request.POST.get("iplist")
         for i in ip_list.split():
