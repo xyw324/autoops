@@ -52,15 +52,15 @@ class AdhocTask(views.View):
                     resource = {}
                     hosts_list = []
                     vars_dic = {}
-                    cn = prpcrypt()
+                    # cn = prpcrypt()
                     hosts_ip = []
                     for host in hosts_obj:
-                        ssh_password = host.ssh_userpasswd
-                        sshpasswd = cn.decrypt(ssh_password)
+                        sshpasswd = host.ssh_userpasswd
+                        # sshpasswd = cn.decrypt(ssh_password)
                         if host.ssh_type in (0, 1, 2):
                             hosts_list.append(
                                 {"hostname": host.sn_key, "ip": host.ssh_hostip, "port": host.ssh_host_port,
-                                 "username": host.ssh_username})
+                                 "username": host.ssh_username, "password": sshpasswd})
                             hosts_ip.append(host.ssh_hostip)
                     resource[group_name] = {"hosts": hosts_list, "vars": vars_dic}
                     adlog.record(statuid=10004)
