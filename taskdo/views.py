@@ -21,6 +21,7 @@ class AdhocTask(views.View):
         current_second = str(current_time).split(".")[0]
         init_jobs = {'mod_type': 'shell', 'exec_args': 'touch /tmp/a.txt', 'group_name': 'test01', 'sn_key': []}
         init_jobs['taskid'] = current_second
+        print(request.data)
         ip_list = request.POST.get("iplist")
         for i in ip_list.split():
             host_obj = models.VirtualServerInfo.objects.filter(server_ip=i)[0]
