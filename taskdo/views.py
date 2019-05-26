@@ -73,6 +73,7 @@ class AdhocTask(views.View):
                     else:
                         # 开始执行任务
                         redis.set("tasklock", 1)
+                        print(redis.get('tasklock'))
                         job = ansible_api.ANSRunner(resource=resource, redisKey='1')
                         job.run_model(host_list=hosts_ip, module_name=mod_type, module_args=exec_args)
                         res = job.get_model_result()
