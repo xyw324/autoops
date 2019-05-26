@@ -4,7 +4,8 @@ import time
 import json
 from taskdo import models
 from taskdo.utils.base.utils import prpcrypt
-from taskdo.utils.base import RedisCon, MongoCon
+from taskdo.utils.base import MongoCon
+from django_redis import get_redis_connection
 from taskdo.utils import ansible_api
 import traceback
 
@@ -65,23 +66,24 @@ class AdhocTask(views.View):
                     resource[group_name] = {"hosts": hosts_list, "vars": vars_dic}
                     adlog.record(statuid=10004)
                     # 任务锁检查
-                    lockstatus = RedisCon.DsRedis.get(rkey='tasklock')
+                    redis = get_redis_connection("default")
+                    lockstatus = redis.get(rkey='tasklock')
                     if lockstatus is False or lockstatus == '1':
                         adlog.record(statuid=40005)
                     else:
                         # 开始执行任务
-                        RedisCon.DsRedis.setlock("tasklock", 1)
+                        redis.set("tasklock", 1)
                         job = ansible_api.ANSRunner(resource=resource, redisKey='1')
                         job.run_model(host_list=hosts_ip, module_name=mod_type, module_args=exec_args)
                         res = job.get_model_result()
                         adlog.record(statuid=19999, input_con=res)
                         adlog.record(statuid=20000)
-                        RedisCon.DsRedis.setlock("tasklock", 0)
+                        redis.set("tasklock", 0)
                         result = {"status": "success", "info": res}
                         print(result)
             except Exception as e:
                 print(traceback.print_exc())
-                RedisCon.DsRedis.setlock("tasklock", 0)
+                redis.set("tasklock", 0)
                 result = {"status": "failed", "code": "005", "info": e}
                 print(result)
             finally:

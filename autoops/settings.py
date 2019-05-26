@@ -128,6 +128,15 @@ STATICFILES_DIRS = [
 MONGO_HOST = '192.168.1.74'
 MONGO_PORT = 27017
 
-# Redis Connection
-REDSI_KWARGS_LPUSH = {"host": '192.168.1.74', 'port': 6379, 'db': 3}
-REDSI_LPUSH_POOL = None
+# redis配置
+CACHES = {
+    "default": {
+        "BACKEND": "django_redis.cache.RedisCache",
+        "LOCATION": "redis://127.0.0.1:6379",
+        "OPTIONS": {
+            "CLIENT_CLASS": "django_redis.client.DefaultClient",
+            "CONNECTION_POOL_KWARGS": {"max_connections": 100}
+            # "PASSWORD": "密码",
+        }
+    }
+}
