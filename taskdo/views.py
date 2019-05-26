@@ -38,6 +38,7 @@ class AdhocTask(views.View):
             return HttpResponse(json.dumps(result), content_type='application/json')
         else:
             adlog = MongoCon.InsertAdhocLog(taskid=taskid)
+        redis = get_redis_connection("default")
         if mod_type not in ['shell', 'yum', 'copy']:
             result = {'status': "failed", "code": "003", "info": u"传入的参数不完整！"}
             adlog.record(statuid=10008)
@@ -66,8 +67,7 @@ class AdhocTask(views.View):
                     resource[group_name] = {"hosts": hosts_list, "vars": vars_dic}
                     adlog.record(statuid=10004)
                     # 任务锁检查
-                    redis = get_redis_connection("default")
-                    lockstatus = redis.get(rkey='tasklock')
+                    lockstatus = redis.get('tasklock')
                     if lockstatus is False or lockstatus == '1':
                         adlog.record(statuid=40005)
                     else:
