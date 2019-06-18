@@ -99,6 +99,7 @@ def adhoc_task_log(request):
         if taskid:
             rlog = MongoCon.InsertAdhocLog(taskid=taskid)
             res = rlog.getrecord()
+            print(res)
             result = {"status": "success", 'taskid': taskid, "info": res}
         else:
             result = {"status": "failed", "info": u"没有传入taskid值"}
