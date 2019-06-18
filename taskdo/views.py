@@ -1,6 +1,7 @@
 from django.shortcuts import HttpResponse, render
 from django import views
 import time
+import datetime
 import json
 from taskdo import models
 from taskdo.utils.base import MongoCon
@@ -8,6 +9,12 @@ from django_redis import get_redis_connection
 from taskdo.utils import ansible_api
 import traceback
 
+
+class DateEncoder(json.JSONEncoder ):
+    def default(self, obj):
+        if isinstance(obj, datetime):
+            return obj.__str__()
+        return json.JSONEncoder.default(self, obj)
 
 class AdhocTask(views.View):
     def get(self, request):
@@ -103,4 +110,5 @@ def adhoc_task_log(request):
             result = {"status": "success", 'taskid': taskid, "info": res}
         else:
             result = {"status": "failed", "info": u"没有传入taskid值"}
-        return HttpResponse(json.dumps(result), content_type="application/json")
+        res = json.dumps(result, cls=DateEncoder)
+        return HttpResponse(res, content_type="application/json")
