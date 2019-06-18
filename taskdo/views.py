@@ -3,7 +3,6 @@ from django import views
 import time
 import json
 from taskdo import models
-from taskdo.utils.base.utils import prpcrypt
 from taskdo.utils.base import MongoCon
 from django_redis import get_redis_connection
 from taskdo.utils import ansible_api
@@ -21,7 +20,6 @@ class AdhocTask(views.View):
         current_second = str(current_time).split(".")[0]
         init_jobs = {'mod_type': 'shell', 'exec_args': 'touch /tmp/a.txt', 'group_name': 'test01', 'sn_key': []}
         init_jobs['taskid'] = current_second
-        print(request.data)
         ip_list = request.POST.get("iplist")
         for i in ip_list.split():
             host_obj = models.VirtualServerInfo.objects.filter(server_ip=i)[0]
@@ -93,10 +91,16 @@ class AdhocTask(views.View):
         # return HttpResponse('OK')
 
 
-class AdhocTaskLog(views.View):
-
-    def get(self, request):
-        pass
-
-    def post(self, request):
-        return HttpResponse('OK')
+# Create your views here.
+def adhoc_task_log(request):
+    if request.method == "GET":
+        taskid = request.GET.get("taskid")
+        result = {}
+        if taskid:
+            rlog = MongoCon.InsertAdhocLog(taskid=taskid)
+            res = rlog.getrecord()
+            result = {"status": "success", 'taskid': taskid, "info": res}
+        else:
+            result = {"status": "failed", "info": u"没有传入taskid值"}
+        res = json.dumps(result)
+        return HttpResponse(res, content_type="application/json")
