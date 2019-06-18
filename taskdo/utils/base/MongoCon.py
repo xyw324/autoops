@@ -25,8 +25,9 @@ class Mongodb(object):
     def filter(self, adhoc_id):
         result = []
         if adhoc_id:
-            args = {'taskid': adhoc_id}
-            logs = self.col.find(args).sort('time')
+            logs = self.col.find({
+                'taskid': adhoc_id
+            }, {"_id": 0}).sort([('time', 1)])
             for res in logs:
                 result.append(res)
             print('...........................mongo', result, adhoc_id)
