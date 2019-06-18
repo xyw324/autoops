@@ -6,7 +6,6 @@ from django.shortcuts import HttpResponse, render
 from django import views
 from taskdo import models
 from taskdo.utils.base import MongoCon, RedisCon
-from django_redis import get_redis_connection
 from taskdo.utils import ansible_api
 
 
