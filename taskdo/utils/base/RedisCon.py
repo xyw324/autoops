@@ -1,34 +1,30 @@
 # -*- coding=utf-8 -*-
 
 import redis
-import traceback
 from django.conf import settings
 
 
 class RedisConPool(object):
-    REDIS_POOL = 10000
+    REDSI_POOL = 10000
 
     @staticmethod
-    def getRedisConnection(self, db=10000):
-        if db == RedisConPool.REDIS_POOL:
+    # 连接池设置
+    def getRedisConnection(db):
+        if db == RedisConPool.REDSI_POOL:
             args = settings.REDSI_KWARGS_LPUSH
-            if not settings.REDSI_LPUSH_POOL:
+            if settings.REDSI_LPUSH_POOL == None:
                 settings.REDSI_LPUSH_POOL = redis.ConnectionPool(host=args.get('host'), port=args.get('port'),
                                                                  db=args.get('db'))
-                pools = settings.REDSI_LPUSH_POOL
+            pools = settings.REDSI_LPUSH_POOL
         connection = redis.Redis(connection_pool=pools)
         return connection
 
 
 class DsRedis(object):
-    """
-    封装常用操作涉及添加，删除，设置锁
-    """
-
     @staticmethod
     def lpush(redisKey, data):
         try:
-            redisConn = RedisConPool.getRedisConnection(RedisConPool.REDIS_POOL)
+            redisConn = RedisConPool.getRedisConnection(RedisConPool.REDSI_POOL)
             redisConn.lpush(redisKey, data)
             redisConn = None
         except:
@@ -37,7 +33,7 @@ class DsRedis(object):
     @staticmethod
     def rpop(redisKey):
         try:
-            redisConn = RedisConPool.getRedisConnection(RedisConPool.REDIS_POOL)
+            redisConn = RedisConPool.getRedisConnection(RedisConPool.REDSI_POOL)
             data = redisConn.rpop(redisKey)
             redisConn = None
             return data
@@ -47,7 +43,7 @@ class DsRedis(object):
     @staticmethod
     def delete(redisKey):
         try:
-            redisConn = RedisConPool.getRedisConnection(RedisConPool.REDIS_POOL)
+            redisConn = RedisConPool.getRedisConnection(RedisConPool.REDSI_POOL)
             data = redisConn.delete(redisKey)
             redisConn = None
             return data
@@ -57,19 +53,19 @@ class DsRedis(object):
     @staticmethod
     def setlock(rkey, value):
         try:
-            redisConn = RedisConPool.getRedisConnection(10000)
+            redisConn = RedisConPool.getRedisConnection(RedisConPool.REDSI_POOL)
             redisConn.set(rkey, value)
-            # redisConn.expire(redisKey, 1800)
             redisConn.expire(rkey, 1800)
             redisConn = None
         except:
-            print(traceback.print_exc())
+            import traceback
+            # print traceback.print_exc()
             return False
 
     @staticmethod
     def get(rkey):
         try:
-            redisConn = RedisConPool.getRedisConnection(10000)
+            redisConn = RedisConPool.getRedisConnection(RedisConPool.REDSI_POOL)
             result = redisConn.get(rkey)
             redisConn = None
             return result

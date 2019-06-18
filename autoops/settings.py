@@ -128,6 +128,10 @@ STATICFILES_DIRS = [
 MONGO_HOST = '192.168.1.74'
 MONGO_PORT = 27017
 
+# Redis Con
+REDSI_KWARGS_LPUSH = {"host": '192.168.1.74', 'port': 6379, 'db': 0}
+REDSI_LPUSH_POOL = None
+
 # redis配置
 CACHES = {
     "default": {

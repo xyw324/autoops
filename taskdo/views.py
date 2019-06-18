@@ -1,15 +1,16 @@
-from django.shortcuts import HttpResponse, render
-from django import views
 import time
 import datetime
 import json
+import traceback
+from django.shortcuts import HttpResponse, render
+from django import views
 from taskdo import models
-from taskdo.utils.base import MongoCon
+from taskdo.utils.base import MongoCon, RedisCon
 from django_redis import get_redis_connection
 from taskdo.utils import ansible_api
-import traceback
 
 
+# 重写构造json类，遇到日期特殊处理
 class DateEncoder(json.JSONEncoder):
     def default(self, obj):
         if isinstance(obj, datetime.datetime):
@@ -17,7 +18,9 @@ class DateEncoder(json.JSONEncoder):
         return json.JSONEncoder.default(self, obj)
 
 
+# 执行Ad-hoc模式view
 class AdhocTask(views.View):
+
     def get(self, request):
         hostgroup_list = models.HostGroup.objects.all()
         return render(request, 'info.html', {'hostgroups': hostgroup_list})
@@ -45,7 +48,6 @@ class AdhocTask(views.View):
             return HttpResponse(json.dumps(result), content_type='application/json')
         else:
             adlog = MongoCon.InsertAdhocLog(taskid=taskid)
-        redis = get_redis_connection("default")
         if mod_type not in ['shell', 'yum', 'copy']:
             result = {'status': "failed", "code": "003", "info": u"传入的参数不完整！"}
             adlog.record(statuid=10008)
@@ -74,24 +76,24 @@ class AdhocTask(views.View):
                     resource[group_name] = {"hosts": hosts_list, "vars": vars_dic}
                     adlog.record(statuid=10004)
                     # 任务锁检查
-                    lockstatus = redis.get('tasklock')
+                    lockstatus = RedisCon.DsRedis.get(rkey="tasklock")
                     if lockstatus is False or lockstatus == '1':
                         adlog.record(statuid=40005)
                     else:
                         # 开始执行任务
-                        redis.set("tasklock", 1)
-                        print(redis.get('tasklock'))
+                        RedisCon.DsRedis.setlock("tasklock", 1)
+                        print(RedisCon.DsRedis.get('tasklock'))
                         job = ansible_api.ANSRunner(resource=resource, redisKey='1')
                         job.run_model(host_list=hosts_ip, module_name=mod_type, module_args=exec_args)
                         res = job.get_model_result()
                         adlog.record(statuid=19999, input_con=res)
                         adlog.record(statuid=20000)
-                        redis.set("tasklock", 0)
+                        RedisCon.DsRedis.setlock("tasklock", 0)
                         result = {"status": "success", "info": res}
                         print(result)
             except Exception as e:
                 print(traceback.print_exc())
-                redis.set("tasklock", 0)
+                RedisCon.DsRedis.setlock("tasklock", 0)
                 result = {"status": "failed", "code": "005", "info": e}
                 print(result)
             finally:
@@ -99,7 +101,7 @@ class AdhocTask(views.View):
         # return HttpResponse('OK')
 
 
-# Create your views here.
+# 执行Ad-hoc模式，查询日志view
 def adhoc_task_log(request):
     if request.method == "GET":
         taskid = request.GET.get("taskid")
