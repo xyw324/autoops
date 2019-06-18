@@ -103,5 +103,4 @@ def adhoc_task_log(request):
             result = {"status": "success", 'taskid': taskid, "info": res}
         else:
             result = {"status": "failed", "info": u"没有传入taskid值"}
-        res = json.dumps(result)
-        return HttpResponse(result, content_type="application/json")
+        return HttpResponse(json.dumps(result), content_type="application/json")
