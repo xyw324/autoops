@@ -20,5 +20,5 @@ from taskdo import views
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^adhocdo/$', views.AdhocTask.as_view()),
-    url(r'^adhoclog/$', views.adhoc_task_log),
+    url(r'^adhoclog', views.adhoc_task_log),
 ]
