@@ -30,11 +30,12 @@ class Mongodb(object):
             for res in logs:
                 result.append(res)
             print('...........................mongo', result, adhoc_id)
+            return result
         else:
             return False
 
 
-class InsertAdhocLog():
+class InsertAdhocLog:
     '''
     记录ad-hoc模式日志
     '''
