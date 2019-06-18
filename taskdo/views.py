@@ -10,11 +10,12 @@ from taskdo.utils import ansible_api
 import traceback
 
 
-class DateEncoder(json.JSONEncoder ):
+class DateEncoder(json.JSONEncoder):
     def default(self, obj):
-        if isinstance(obj, datetime):
+        if isinstance(obj, datetime.datetime):
             return obj.__str__()
         return json.JSONEncoder.default(self, obj)
+
 
 class AdhocTask(views.View):
     def get(self, request):
