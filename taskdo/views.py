@@ -26,8 +26,7 @@ class AdhocTask(views.View):
 
     def post(self, request):
         result = {}
-        current_time = time.time()
-        current_second = str(current_time).split(".")[0]
+        current_second = str(int(time.time())*1000)
         init_jobs = {'mod_type': 'shell', 'exec_args': 'touch /tmp/a.txt', 'group_name': 'test01', 'sn_key': []}
         init_jobs['taskid'] = current_second
         ip_list = request.POST.get("iplist")
